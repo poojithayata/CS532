@@ -196,28 +196,28 @@ void arrayDetails(){
 int main(int argc, char** argv){
 
     // numberTransform(n)
-    // int n;
-    // printf("Enter number (numberTransform) : ");
-    // scanf("%d", &n);
-    // printf("%s\n", numberTransform(n));
+    int n;
+    printf("Enter number (numberTransform) : ");
+    scanf("%d", &n);
+    printf("%s\n", numberTransform(n));
 
     // UABNumber
-    // if(UABNumber() == true){
-    //     printf("UABNumber = True\n");
-    // }
-    // else{
-    //     printf("UABNumber = False\n");
-    // }
+    if(UABNumber() == true){
+        printf("UABNumber = True\n");
+    }
+    else{
+        printf("UABNumber = False\n");
+    }
 
     // reverseNum(n3)
-    // int n3;
-    // printf("Enter an integer (reverseNum) : ");
-    // scanf("%d", &n3);
-    // printf("Reverse Number = %d\n", reverseNum(n3));
+    int n3;
+    printf("Enter an integer (reverseNum) : ");
+    scanf("%d", &n3);
+    printf("Reverse Number = %d\n", reverseNum(n3));
 
 
     // SmallerThanIndex() - Even implemented pointers for bonus marks.
-    // printf("Count of integers in the array smaller than index : %d\n",smallerThanIndex());
+    printf("Count of integers in the array smaller than index : %d\n",smallerThanIndex());
 
     // arrayDetails()
     arrayDetails();
