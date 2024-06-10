@@ -1,6 +1,6 @@
 /*
-filename : pyata_Lab01.c
-github : https://github.com/poojithayata/CS532
+filename : pyata_Lab01.c (Implemented pointer for smallerThanIndex())
+github : https://github.com/poojithayata/CS532/tree/main/HW_01
 Compile command : gcc -o a pyata_HW01.c
 execute command : ./a
 */
@@ -8,6 +8,7 @@ execute command : ./a
 #include <stdio.h>
 #include <stdbool.h>
 
+// Function that returns 1 if a number is prime.
 int isPrime(int p){
     for(int i = 2; i<=p/2; i++){
         if(p%i == 0){
@@ -17,24 +18,27 @@ int isPrime(int p){
     return 1;
 }
 
-int isPower2(int n){
-    if(n == 0){
+// Checks if the number is power of 2 or not
+int isPower2(int num){
+    if(num == 0){
         return 0;
     }
-    return (n & (n-1)) == 0;
+    return (num & (num-1)) == 0;
 }
 
-int digitsSum(int n){
+// Returns the sum of the digits
+int digitsSum(int ns){
     int sum = 0;
     int rem;
-    while(n>0){
-        rem = n%10;
+    while(ns>0){
+        rem = ns%10;
         sum += rem;
-        n = n/10;
+        ns = ns/10;
     }
     return sum;
 }
 
+// numberTransform() function.
 char * numberTransform(int n){
 
     if(isPrime(n) && n!=3 && n!=5){
@@ -72,6 +76,7 @@ char * numberTransform(int n){
     
 }
 
+// UABNumber() function
 bool UABNumber(){
 
     int n2;
@@ -89,9 +94,9 @@ bool UABNumber(){
         return true;
     }
     return false;
-
 }
 
+// reverseNum() function
 int reverseNum(int n){
     int rev = 0;
     int rem;
@@ -103,6 +108,7 @@ int reverseNum(int n){
     return rev;
 }
 
+// SmallerThanIndex function
 int smallerThanIndex(){
 
     int numbers = 0;
@@ -136,6 +142,7 @@ int smallerThanIndex(){
     return numbers;
 }
 
+// arrayDetails() function.
 void arrayDetails(){
 
     int n;
@@ -181,16 +188,19 @@ void arrayDetails(){
     }
     details[3] = sum/n;
 
-    printf("Details Array = ");
+    printf("Details Array = [");
     for(int i = 0; i<6; i++){
-        if(i != 3){
+        if(i == 5){
+            printf("%d", (int)details[i]);
+        }
+        else if(i != 3){
             printf("%d, ", (int)details[i]);
         }
         else{
             printf("%.2f, ", details[i]);
         }
     }
-    printf("\n");
+    printf("]\n");
 }
 
 int main(int argc, char** argv){
