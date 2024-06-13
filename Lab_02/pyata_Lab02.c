@@ -30,8 +30,8 @@ int main(int argc, char** argv){
     for(int i =1; i<N; i++){
         key = arr[i];
         j = i-1;
-        while (j > 0 && arr[j]>key){
-            arr[j+1] = arr[j];
+        while (j >= 0 && arr[j]>key){
+            arr[j+1] = arr[j];     
             j -= 1;
         }
         arr[j+1] = key;
