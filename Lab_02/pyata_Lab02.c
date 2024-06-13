@@ -25,7 +25,7 @@ int main(int argc, char** argv){
     }
     printf("}\n");
 
-    printf("Applying Sorting....");
+    printf("Applying Sorting....\n");
     int key, j;
     for(int i =1; i<N; i++){
         key = arr[i];
