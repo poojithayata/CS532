@@ -16,6 +16,7 @@ execute command : ./a
 # include <sys/wait.h>
 # include <ctype.h>
 # include <time.h>
+# include <stdbool.h>
 
 
 char *symbolic_link_file(char *path){
@@ -69,7 +70,7 @@ void Directories_and_Files(char *file_path, int level){
             printf("%s\n", d->d_name);
         }
         if(DT_LNK == d->d_type){
-            printf("%s -> %s\n", d->d_name, symbolic_link_file(child_path));
+            printf("%s {%s}\n", d->d_name, symbolic_link_file(child_path));
         }
 
     }
@@ -78,39 +79,57 @@ void Directories_and_Files(char *file_path, int level){
 
 int main(int argc, char *argv[]){
 
+    bool option_S = false;
+    int option_s_max_size = -1;
+    char *option_f_stringPattern = NULL;
+    int option_f_max_depth = -1;
+    bool option_t = false;
+    int option_tf = 0, option_td = 0;
 
-    int opt;
-    int max_file_size;
-    char *file_type = NULL;
-    int deep;
-
-    while((opt = getopt(argc, argv, "Ss:f::")) != -1){
-        switch(opt){
-            case 'S':
-                printf("S");
+    int options;
+    while((options = getopt(argc, argv, "Ss:f::t:")) != -1){
+        switch(options){
+            case 'S' :
+                // printf("Option S\n");
+                option_S = true;
                 break;
             case 's':
-                printf("s");
-                max_file_size = atoi(optarg);
+                // printf("Option s\n");
+                option_s_max_size = atoi(optarg);
                 break;
             case 'f':
-                printf("f");
-                file_type = optarg;
-                deep = atoi(argv[optind++]);
+                // printf("Option f\n");
+                option_f_stringPattern = optarg;
+                if (optind < argc){
+                    option_f_max_depth = atoi(argv[optind]);
+                    optind++;
+                }
+                break;
+            case 't':
+                // printf("Option t\n");
+                if(strcmp(optarg, "f") == 0){
+                    option_tf = 1;
+                }
+                else if(strcmp(optarg, "d") == 0){
+                    option_td = 1;
+                }
                 break;
         }
     }
 
+
     char *filePath;
 
-    if (argc <= optind){
+    if (argc >= optind){
         filePath = ".";
     }
     else{
-        filePath = argv[1];
+        filePath = argv[optind];
     }
 
-    Directories_and_Files(filePath, 0);
+    printf("filePath = %s\n", filePath);
+    printf("S = %d s = %d f = %s %d t = %d %d\n", option_S, option_s_max_size, option_f_stringPattern, option_f_max_depth, option_tf, option_td);
+    // Directories_and_Files(filePath, 0);
 
     return 0;
 }
