@@ -1,7 +1,10 @@
 /*
+Name : Poojitha Yata
+BlazerId : payata
+Project : HW_02
 filename : pyata_HW02.c
 github : https://github.com/poojithayata/CS532/tree/main/HW_02
-Compile command : gcc -o a pyata_HW02.c
+Compile command : make or gcc -o a pyata_HW02.c
 execute command : ./a
 execute command : ./a ../HW_02
 execute command : ./a -S
@@ -24,6 +27,8 @@ execute command : ./a -S -t d
 # include <ctype.h>
 # include <time.h>
 # include <stdbool.h>
+
+typedef void MY_FUNCTION(char *filePath, int level, bool option_S,long int option_s_max_file_size, char *option_f_stringPattern, int option_f_max_depth, bool option_t, int option_tf);
 
 
 char *symbolic_link_file(char *path){
@@ -198,6 +203,9 @@ void Directories_and_Files(char *file_path, int level, bool option_S,long int op
     // */
 }
 
+void pointerAsFunction(char *filePath, int level, bool option_S,long int option_s_max_file_size, char *option_f_stringPattern, int option_f_max_depth, bool option_t, int option_tf, MY_FUNCTION *pointer_function){
+    pointer_function(filePath, 0, option_S, option_s_max_file_size, option_f_stringPattern, option_f_max_depth, option_t, option_tf);
+}
 
 int main(int argc, char *argv[]){
 
@@ -257,7 +265,8 @@ int main(int argc, char *argv[]){
 
     printf("%s\n", filePath);
     // printf("S = %d s = %d %d f = %s %d t = %d %d\n", option_S, option_s, option_s_max_size, option_f_stringPattern, option_f_max_depth, option_tf, option_td);
-    Directories_and_Files(filePath, 0, option_S, option_s_max_file_size, option_f_stringPattern, option_f_max_depth, option_t, option_tf);
+    pointerAsFunction(filePath, 0, option_S, option_s_max_file_size, option_f_stringPattern, option_f_max_depth, option_t, option_tf, Directories_and_Files );
+    // Directories_and_Files(filePath, 0, option_S, option_s_max_file_size, option_f_stringPattern, option_f_max_depth, option_t, option_tf);
 
     return 0;
 }
