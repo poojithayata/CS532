@@ -1,8 +1,15 @@
 /*
-filename : pyata_Lab01.c (Implemented pointer for smallerThanIndex())
+filename : pyata_HW02.c
 github : https://github.com/poojithayata/CS532/tree/main/HW_02
 Compile command : gcc -o a pyata_HW02.c
 execute command : ./a
+execute command : ./a ../HW_02
+execute command : ./a -S
+execute command : ./a -s 2024
+execute command : ./a -f proj 4
+execute command : ./a -t f
+execute command : ./a -S -s 5024 -f proj 4
+execute command : ./a -S -t d
 */
 
 # include <stdio.h>
@@ -165,39 +172,27 @@ void Directories_and_Files(char *file_path, int level, bool option_S,long int op
 
             if(S_ISDIR(status.st_mode)){
                 // printf("%ld, ", (long)status.st_size);
-                if(option_s_max_file_size >= status.st_size){
-                    if((option_t == 0) || (option_t == 1 && option_tf == 0)){
-                        printf("%s ",d->d_name);
-                        print_option_S(d->d_name, &status, option_S);
-                    }
+                if((option_s_max_file_size >= status.st_size) && ((option_t == 0) || (option_t == 1 && option_tf == 0)) ){        
+                    printf("%s ",d->d_name);
+                    print_option_S(d->d_name, &status, option_S);
                 }
                 printf("\n");
                 Directories_and_Files(child_path, level+1, option_S, option_s_max_file_size, option_f_stringPattern, option_f_max_depth, option_t, option_tf);
             }
-            if(DT_REG == d->d_type){
-                if(option_s_max_file_size >= status.st_size){
-                    if((option_f_stringPattern == NULL) || (strstr(d->d_name, option_f_stringPattern) != NULL)){
-                        if((option_t == 0) || (option_t == 1 && option_tf == 1)){
-                            printf("%s ", d->d_name);
-                            print_option_S(d->d_name, &status, option_S);
-                            printf("\n");  
-                        }
-                        
-                    }
-                }
+            if((DT_REG == d->d_type) && (option_s_max_file_size >= status.st_size) && ((option_f_stringPattern == NULL) || (strstr(d->d_name, option_f_stringPattern) != NULL)) && ((option_t == 0) || (option_t == 1 && option_tf == 1)) ){    
+                printf("%s ", d->d_name);
+                print_option_S(d->d_name, &status, option_S);
+                printf("\n");    
             }
-            if(DT_LNK == d->d_type){
-                if(option_s_max_file_size >= status.st_size){
-                    if((option_f_stringPattern == NULL) || (strstr(d->d_name, option_f_stringPattern) != NULL)){
-                        if((option_t == 0) || (option_t == 1 && option_tf == 1)){
-                        printf("%s {%s} ", d->d_name, symbolic_link_file(child_path));
-                        print_option_S(d->d_name, &status, option_S);
-                        printf("\n");
-                        }
-                    }
-                }
+            if((DT_LNK == d->d_type) && (option_s_max_file_size >= status.st_size) && ((option_f_stringPattern == NULL) || (strstr(d->d_name, option_f_stringPattern) != NULL)) && ((option_t == 0) || (option_t == 1 && option_tf == 1)) ){
+                printf("%s {%s} ", d->d_name, symbolic_link_file(child_path));
+                print_option_S(d->d_name, &status, option_S);
+                printf("\n");
             }
+                    
+                
         }
+        
     }
 
     // */
