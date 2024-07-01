@@ -7,6 +7,7 @@ github : https://github.com/poojithayata/CS532/tree/main/HW_02
 Compile command : make or gcc -o a pyata_HW02.c
 execute command : ./a
 execute command : ./a ../HW_02
+execute command : ./a projects/project1
 execute command : ./a -S
 execute command : ./a -s 2024
 execute command : ./a -f proj 4
