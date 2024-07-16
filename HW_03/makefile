@@ -2,7 +2,7 @@ CC = gcc
 
 OUTPUT = a
 
-SRC = pyata_HW02.c
+SRC = pyata_HW03.c
 
 all : $(OUTPUT)
 

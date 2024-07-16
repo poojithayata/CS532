@@ -14,6 +14,9 @@ execute command : ./a -f proj 4
 execute command : ./a -t f
 execute command : ./a -S -s 5024 -f proj 4
 execute command : ./a -S -t d
+execute command : ./a -S -e 'ls -l'
+execute command : ./a -f png 3 -E 'tar cvf png.tar'
+execute command : ./a -s 1024 -f png 3 -e 'wc'
 */
 
 # include <stdio.h>
@@ -140,13 +143,38 @@ void AllFile_Command(char allCommand[1024], char *allFiles[1024], int allFilesCo
         int i =0;
         while(flag != NULL){
             arguments[i] = flag;
+             /*
+            printf("Option S = %d\n", option_S);
+            if (option_S){
+                printf("Option S\n");
+            }
+            else{
+                printf("Not option S\n");
+            }  
+            */
+            
+            // /*
+            // printf("e = %d %s E = %d %s\n", option_e, eachCommand, option_E, allCommand);
             flag = strtok(NULL, " ");
             i += 1;
         }
 
         int j = 0;
         while(j<allFilesCount){
+             /*
+            printf("Option S = %d\n", option_S);
+            if (option_S){
+                printf("Option S\n");
+            }
+            else{
+                printf("Not option S\n");
+            }  
+            */
+             
+            // /*
+            // printf("e = %d %s E = %d %s\n", option_e, eachCommand, option_E, allCommand);
             arguments[i] = allFiles[j];
+
             i += 1;
             j += 1;
         }
@@ -177,6 +205,18 @@ void EachFile_Command(char *path, char each_Command[1024]){
         int i =0;
         while(flag != NULL){
             arguments[i] = flag;
+            /*
+            printf("Option S = %d\n", option_S);
+            if (option_S){
+                printf("Option S\n");
+            }
+            else{
+                printf("Not option S\n");
+            }  
+            */
+            
+            // /*
+            // printf("e = %d %s E = %d %s\n", option_e, eachCommand, option_E, allCommand);
             flag = strtok(NULL, " ");
             i += 1;
         }
@@ -259,9 +299,12 @@ void Directories_and_Files(char *file_path, int level, bool option_S,long int op
             if((DT_REG == d->d_type) && (option_s_max_file_size >= status.st_size) && ((option_f_stringPattern == NULL) || (strstr(d->d_name, option_f_stringPattern) != NULL)) && ((option_t == 0) || (option_t == 1 && option_tf == 1)) ){    
                 printf("%s ", d->d_name);
                 print_option_S(d->d_name, &status, option_S);
+
+                // This condition is for option E
                 if(option_E == 1){
                     allFiles[allFilesCount++] = strdup(child_path);
                 }
+                // This condition is for option e
                 if( option_e == 1){
                     EachFile_Command(child_path, each_Command);
                 }
@@ -270,9 +313,13 @@ void Directories_and_Files(char *file_path, int level, bool option_S,long int op
             if((DT_LNK == d->d_type) && (option_s_max_file_size >= status.st_size) && ((option_f_stringPattern == NULL) || (strstr(d->d_name, option_f_stringPattern) != NULL)) && ((option_t == 0) || (option_t == 1 && option_tf == 1)) ){
                 printf("%s {%s} ", d->d_name, symbolic_link_file(child_path));
                 print_option_S(d->d_name, &status, option_S);
+
+                // This condition is for option E
                 if(option_E == 1){
                     allFiles[allFilesCount++] = strdup(child_path);
                 }
+
+                // This condition is for option e
                 if( option_e == 1){
                     EachFile_Command(child_path, each_Command);
                 }
@@ -348,8 +395,7 @@ int main(int argc, char *argv[]){
             case 'e':
                 option_e = true;
                 strcpy(eachCommand, optarg);
-                break;
-            
+                break;  
         }
     }
 
