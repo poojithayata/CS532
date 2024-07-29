@@ -1,0 +1,4 @@
+uname -a
+/sbin/ifconfig
+/workspaces/CS532/HW_02/a
+/workspaces/CS532/HW_02/a 1000
